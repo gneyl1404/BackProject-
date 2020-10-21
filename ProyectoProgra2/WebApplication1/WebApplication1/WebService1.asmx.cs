@@ -16,11 +16,107 @@ namespace WebApplication1
     // [System.Web.Script.Services.ScriptService]
     public class WebService1 : System.Web.Services.WebService
     {
+        private object contextoBD;
 
         [WebMethod]
-        public string HelloWorld()
+        public string Crear_Cliente(string strCodigo, string strDireccion, string strNombre)
         {
-            return "Hola a todos";
+            try
+            {
+                using (var contextoBD = new DBProgIIEntities()) ;
+                {
+                    Clientes objClientes = new Clientes();
+                    objClientes.Codigo = strCodigo;
+                    objClientes.Dirección = strDireccion;
+                    objClientes.Nombre = strNombre;
+                    contextoBD.Clientes(objClientes);
+                    contextoBD.SaveChanges();
+                    return "CLIENTE GUARDADO : ";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+        [WebMethod]
+        public string Consulta(string Codigo)
+        {
+            try
+            {
+                using (var estoyMuerto = new DBProgIIEntities())
+                {
+                    var cliente = estoyMuerto.Cliente.Find(Codigo);
+                    if (cliente == null)
+                    {
+                        estoyMuerto.SaveChanges();
+                        return "NO HAY REGISTRO ALGUNO ";
+                    }
+                    else
+                    {
+                        return cliente.Dirección + "; " + cliente.Nombre;
+                    }
+                }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+        [WebMethod]
+        public string Crear_Pedidos(string strCodigo_Cliente, string strFecha, string strNumero_pedido, string strNombre_cliente, string strCodigo_producto, string strproducto, string strPrecio, string strEstado, string strDirección)
+        {
+            try
+            {
+                using (var contextoBD = new DBProgIIEntities())
+                {
+                    reserva Objpedido = new reserva();
+                    Objpedido.Codigo_Cliente = strCodigo_Cliente;
+                    Objpedido.fecha = strFecha;
+                    Objpedido.Nuemero_Pedido = strNumero_pedido;
+                    Objpedido.Nombre_cliente = strNombre_cliente;
+                    Objpedido.Codigo_Producto = strCodigo_producto;
+                    Objpedido.Estado = strEstado;
+                    Objpedido.precio = strPrecio;
+                    Objpedido.Direccion = strDirección;
+                    contextoBD.reservas(Objpedido);
+                    contextoBD.SaveChanges();
+                    return "CLIENTE GUARDADO : ";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+
+
+            }
+        }
+
+        [WebMethod]
+        public string actualizar_Tabla(string Codigo)
+        {
+            try
+            {
+                using (var estoyMuerto = new DBProgIIEntities())
+                {
+                    var cliente = estoyMuerto.Cliente.Find(Codigo);
+                    if (cliente == null)
+                    {
+                        estoyMuerto.SaveChanges();
+                        return "ACTUALIZACION DEL PRODUCTO DISPONIBLE ";
+                    }
+                    else
+                    {
+                        return cliente.Dirección + cliente.Nombre + "; " + cliente.Codigo;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "OCURRIO UN ERROR " + ex.Message;
+            }
         }
     }
 }
+
