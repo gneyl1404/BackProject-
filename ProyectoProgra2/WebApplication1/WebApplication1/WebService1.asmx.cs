@@ -58,6 +58,7 @@ namespace WebApplication1
                         return cliente.Dirección + "; " + cliente.Nombre;
                     }
                 }
+            }
             catch (Exception ex)
             {
                 return "ERROR:  " + ex.Message;
@@ -71,7 +72,7 @@ namespace WebApplication1
             {
                 using (var contextoBD = new DBProgIIEntities())
                 {
-                    reserva Objpedido = new reserva();
+                    Reserva Objpedido = new Reserva();
                     Objpedido.Codigo_Cliente = strCodigo_Cliente;
                     Objpedido.fecha = strFecha;
                     Objpedido.Nuemero_Pedido = strNumero_pedido;
@@ -80,7 +81,7 @@ namespace WebApplication1
                     Objpedido.Estado = strEstado;
                     Objpedido.precio = strPrecio;
                     Objpedido.Direccion = strDirección;
-                    contextoBD.reservas(Objpedido);
+                    contextoBD.Reserva(Objpedido);
                     contextoBD.SaveChanges();
                     return "CLIENTE GUARDADO : ";
                 }
@@ -117,6 +118,32 @@ namespace WebApplication1
                 return "OCURRIO UN ERROR " + ex.Message;
             }
         }
+        [WebMethod]
+        public string Consultaquejas(string Fecha)
+        {
+            try
+            {
+                using (var quejas = new DBProgIIEntities())
+                {
+                    var info = quejas.Cliente.Find(Fecha);
+                    if (info == null)
+                    {
+                        quejas.SaveChanges();
+                        return "No Existe Ningun Tipo De Queja ";
+                    }
+                    else
+                    {
+                        return info.Fecha + "; " + info.Tipo + "; " + info.Descripcion + "; " + info.Calificacion + "; ";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+
     }
 }
 
