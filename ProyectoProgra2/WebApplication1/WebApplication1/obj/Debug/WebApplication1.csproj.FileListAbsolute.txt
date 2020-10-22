@@ -1,2 +1,4 @@
 C:\Users\jalej\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csprojAssemblyReference.cache
 C:\Users\jalej\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csproj.CoreCompileInputs.cache
+C:\Users\Lubia Catalan\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csprojAssemblyReference.cache
+C:\Users\Lubia Catalan\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csproj.CoreCompileInputs.cache

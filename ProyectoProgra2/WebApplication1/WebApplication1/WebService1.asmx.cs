@@ -142,8 +142,54 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
-
-
+        //Edgardo Saul Martinez Velasquez
+        [WebMethod]
+        public DBProgIIEntities Consultapedidos(string Codigo_cliente)
+        {
+            try
+            {
+                using (var pedidos = new DBProgIIEntities())
+                {
+                    var info = pedidos.pedidos.Find(Codigo_cliente);
+                    if (info == null)
+                    {
+                        pedidos.SaveChanges();
+                        return "No Existe Ningun Tipo de Pedido ";
+                    }
+                    else
+                    {
+                        return info.Fecha + "; " + info.Numero_pedido + "; " + info.Codigo_cliente + "; " + info.Calificacion + "; " + info.Codigo_producto + "; " + info.Producto + "; " + info.Precio + "; " + info.Estado + "; " + info.Direccion + "; ";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+    [WebMethod]
+    public string Tablacomentarios(string Fecha, string Tipo, string Descripcion, string Calificacion)
+    {
+        try
+        {
+                using (var contextoBD = new DBProgIIEntities())
+                {
+                    comentario objComentario = new comentario();
+                    objComentario.Codigo = Fecha;
+                    objComentario.Dirección = Tipo;
+                    objComentario.Nombre = Descripcion;
+                    objComentario.Nombre = Calificacion;
+                    contextoBD.Comentario(objComentario);
+                    contextoBD.SaveChanges();
+                    return "CLIENTE GUARDADO : ";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+    
     }
 }
 
