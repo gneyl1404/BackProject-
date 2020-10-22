@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using WebApplication1.Capa_de_datos;
 
 namespace WebApplication1
 {
@@ -23,13 +24,13 @@ namespace WebApplication1
         {
             try
             {
-                using (var contextoBD = new DBProgIIEntities()) ;
+                using (var contextoBD = new DBProgIIEntities2()) 
                 {
-                    Clientes objClientes = new Clientes();
+                    Cliente objClientes = new Cliente();
                     objClientes.Codigo = strCodigo;
                     objClientes.Dirección = strDireccion;
                     objClientes.Nombre = strNombre;
-                    contextoBD.Clientes(objClientes);
+                    contextoBD.Cliente.Add(objClientes);
                     contextoBD.SaveChanges();
                     return "CLIENTE GUARDADO : ";
                 }
@@ -41,16 +42,16 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string Consulta(string Codigo)
+        public string ConsultaCliente(string Codigo)
         {
             try
             {
-                using (var estoyMuerto = new DBProgIIEntities())
+                using (var contextoBD = new DBProgIIEntities2())
                 {
-                    var cliente = estoyMuerto.Cliente.Find(Codigo);
+                    var cliente = contextoBD.Cliente.Find(Codigo);
                     if (cliente == null)
                     {
-                        estoyMuerto.SaveChanges();
+                        contextoBD.SaveChanges();
                         return "NO HAY REGISTRO ALGUNO ";
                     }
                     else
@@ -66,22 +67,22 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string Crear_Pedidos(string strCodigo_Cliente, string strFecha, string strNumero_pedido, string strNombre_cliente, string strCodigo_producto, string strproducto, string strPrecio, string strEstado, string strDirección)
+        public string Crear_Pedidos(string strCodigo_Cliente, string strFecha, string strNumero_pedido, string strNombre_cliente, string strCodigo_producto, string strproducto, int strPrecio, string strEstado, string strDirección)
         {
             try
             {
-                using (var contextoBD = new DBProgIIEntities())
+                using (var contextoBD = new DBProgIIEntities2())
                 {
-                    Reserva Objpedido = new Reserva();
-                    Objpedido.Codigo_Cliente = strCodigo_Cliente;
-                    Objpedido.fecha = strFecha;
-                    Objpedido.Nuemero_Pedido = strNumero_pedido;
+                    pedidos Objpedido = new pedidos();
+                    Objpedido.Codigo_cliente = strCodigo_Cliente;
+                    Objpedido.Fecha = strFecha;
+                    Objpedido.Numero_pedido = strNumero_pedido;
                     Objpedido.Nombre_cliente = strNombre_cliente;
-                    Objpedido.Codigo_Producto = strCodigo_producto;
+                    Objpedido.Codigo_producto = strCodigo_producto;
                     Objpedido.Estado = strEstado;
-                    Objpedido.precio = strPrecio;
-                    Objpedido.Direccion = strDirección;
-                    contextoBD.Reserva(Objpedido);
+                    Objpedido.Precio = strPrecio;
+                    Objpedido.Dirección = strDirección;
+                    contextoBD.pedidos.Add(Objpedido);
                     contextoBD.SaveChanges();
                     return "CLIENTE GUARDADO : ";
                 }
@@ -95,11 +96,11 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string actualizar_Tabla(string Codigo)
+        public string actualizarProducto(string Codigo)
         {
             try
             {
-                using (var estoyMuerto = new DBProgIIEntities())
+                using (var estoyMuerto = new DBProgIIEntities2())
                 {
                     var cliente = estoyMuerto.Cliente.Find(Codigo);
                     if (cliente == null)
@@ -123,9 +124,9 @@ namespace WebApplication1
         {
             try
             {
-                using (var quejas = new DBProgIIEntities())
+                using (var quejas = new DBProgIIEntities2())
                 {
-                    var info = quejas.Cliente.Find(Fecha);
+                    var info = quejas.comentarios_o_quejas.Find(Fecha);
                     if (info == null)
                     {
                         quejas.SaveChanges();
@@ -133,7 +134,7 @@ namespace WebApplication1
                     }
                     else
                     {
-                        return info.Fecha + "; " + info.Tipo + "; " + info.Descripcion + "; " + info.Calificacion + "; ";
+                        return info.Fecha + "; " + info.Tipo+ "; " + info.Descripción + "; " + info.Calificación + "; ";
                     }
                 }
             }
@@ -144,11 +145,11 @@ namespace WebApplication1
         }
         //Edgardo Saul Martinez Velasquez
         [WebMethod]
-        public DBProgIIEntities Consultapedidos(string Codigo_cliente)
+        public string Consultapedidos(string Codigo_cliente)
         {
             try
             {
-                using (var pedidos = new DBProgIIEntities())
+                using (var pedidos = new DBProgIIEntities2())
                 {
                     var info = pedidos.pedidos.Find(Codigo_cliente);
                     if (info == null)
@@ -158,7 +159,7 @@ namespace WebApplication1
                     }
                     else
                     {
-                        return info.Fecha + "; " + info.Numero_pedido + "; " + info.Codigo_cliente + "; " + info.Calificacion + "; " + info.Codigo_producto + "; " + info.Producto + "; " + info.Precio + "; " + info.Estado + "; " + info.Direccion + "; ";
+                        return info.Fecha + "; " + info.Numero_pedido + "; " + info.Codigo_cliente + "; " + info.Nombre_cliente + "; " + info.Codigo_producto + "; " + info.Producto + "; " + info.Precio + "; " + info.Estado + "; " + info.Dirección + "; ";
                     }
                 }
             }
@@ -168,20 +169,20 @@ namespace WebApplication1
             }
         }
     [WebMethod]
-    public string Tablacomentarios(string Fecha, string Tipo, string Descripcion, string Calificacion)
+    public string AñadirComentario(string Fecha, string Tipo, string Descripcion, int Calificacion)
     {
         try
         {
-                using (var contextoBD = new DBProgIIEntities())
+                using (var contextoBD = new DBProgIIEntities2())
                 {
-                    comentario objComentario = new comentario();
-                    objComentario.Codigo = Fecha;
-                    objComentario.Dirección = Tipo;
-                    objComentario.Nombre = Descripcion;
-                    objComentario.Nombre = Calificacion;
-                    contextoBD.Comentario(objComentario);
+                    comentarios_o_quejas objComentario = new comentarios_o_quejas();
+                    objComentario.Calificación = Calificacion;
+                    objComentario.Descripción = Descripcion;
+                    objComentario.Fecha = Descripcion;
+                    objComentario.Tipo = Tipo;
+                    contextoBD.comentarios_o_quejas.Add(objComentario);
                     contextoBD.SaveChanges();
-                    return "Comentario GUARDADO : ";
+                    return "Comentario GUARDADO: ";
                 }
             }
             catch (Exception ex)
@@ -189,7 +190,36 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
-    
+        [WebMethod]
+        public string ClientesFrecuentes(string strFacturasEmitidas)
+        {
+            try
+            {
+                using (var frecuente = new DBProgIIEntities())
+                {
+                    var cliente =  frecuente.Cliente.Find(strFacturasEmitidas);
+                    if (cliente == null)
+                    {
+                        frecuente.SaveChanges();
+                        return "NO HAY REGISTRO ALGUNO ";
+                    }
+                    else
+                    {
+                        return cliente.Dirección + "; " + cliente.Nombre;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+
+
+
+
+
     }
 }
 
