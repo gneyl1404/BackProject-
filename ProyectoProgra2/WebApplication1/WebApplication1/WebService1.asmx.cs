@@ -181,7 +181,7 @@ namespace WebApplication1
                     objComentario.Nombre = Calificacion;
                     contextoBD.Comentario(objComentario);
                     contextoBD.SaveChanges();
-                    return "CLIENTE GUARDADO : ";
+                    return "Comentario GUARDADO : ";
                 }
             }
             catch (Exception ex)
