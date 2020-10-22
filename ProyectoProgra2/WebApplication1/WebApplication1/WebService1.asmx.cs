@@ -24,7 +24,7 @@ namespace WebApplication1
         {
             try
             {
-                using (var contextoBD = new DBProgIIEntities2()) 
+                using (var contextoBD = new DBProgIIEntities2())
                 {
                     Cliente objClientes = new Cliente();
                     objClientes.Codigo = strCodigo;
@@ -134,7 +134,7 @@ namespace WebApplication1
                     }
                     else
                     {
-                        return info.Fecha + "; " + info.Tipo+ "; " + info.Descripción + "; " + info.Calificación + "; ";
+                        return info.Fecha + "; " + info.Tipo + "; " + info.Descripción + "; " + info.Calificación + "; ";
                     }
                 }
             }
@@ -168,11 +168,11 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
-    [WebMethod]
-    public string AñadirComentario(string Fecha, string Tipo, string Descripcion, int Calificacion)
-    {
-        try
+        [WebMethod]
+        public string AñadirComentario(string Fecha, string Tipo, string Descripcion, int Calificacion)
         {
+            try
+            {
                 using (var contextoBD = new DBProgIIEntities2())
                 {
                     comentarios_o_quejas objComentario = new comentarios_o_quejas();
@@ -195,9 +195,9 @@ namespace WebApplication1
         {
             try
             {
-                using (var frecuente = new DBProgIIEntities())
+                using (var frecuente = new DBProgIIEntities2())
                 {
-                    var cliente =  frecuente.Cliente.Find(strFacturasEmitidas);
+                    var cliente = frecuente.Cliente.Find(strFacturasEmitidas);
                     if (cliente == null)
                     {
                         frecuente.SaveChanges();
@@ -214,11 +214,6 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
-
-
-
-
-
 
     }
 }
