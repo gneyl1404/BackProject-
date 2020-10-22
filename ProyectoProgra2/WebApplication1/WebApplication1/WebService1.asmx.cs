@@ -176,6 +176,7 @@ namespace WebApplication1
                 using (var contextoBD = new DBProgIIEntities2())
                 {
                     comentarios_o_quejas objComentario = new comentarios_o_quejas();
+                    objComentario.Fecha = Fecha;
                     objComentario.Calificación = Calificacion;
                     objComentario.Descripción = Descripcion;
                     objComentario.Fecha = Descripcion;
@@ -214,7 +215,50 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
+        [WebMethod]
+        public string Consulpuntajequejas()
+        {
+            try
+            {
+                using (var quejas = new DBProgIIEntities2())
 
+                {
+                    int numero = 5;
+
+                    var info = quejas.comentarios_o_quejas.Find(numero);
+                    if(info == null)
+                    {
+                        quejas.SaveChanges();
+                        return "No Existe Ningun Tipo De Queja ";
+                    }
+                
+                    else
+                    {
+                        return info.Fecha + "; " + info.Tipo + "; " + info.Descripción + "; " + info.Calificación + "; ";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
     }
 }
+
+     
+            
+
+            
+                
+            
+
+
+
+            
+
+
+            
+    
+
 
