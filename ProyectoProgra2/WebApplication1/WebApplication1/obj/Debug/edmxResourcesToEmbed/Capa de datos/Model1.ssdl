@@ -8,18 +8,15 @@
     <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Dirección" Type="varchar" MaxLength="300" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'DBProgII.dbo.comentarios_o_quejas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="comentarios_o_quejas">
     <Key>
-      <PropertyRef Name="Fecha" />
-      <PropertyRef Name="Tipo" />
-      <PropertyRef Name="Calificación" />
+      <PropertyRef Name="Código" />
     </Key>
     <Property Name="Fecha" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Tipo" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Descripción" Type="varchar" MaxLength="300" />
     <Property Name="Calificación" Type="int" Nullable="false" />
+    <Property Name="Código" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="pedidos">
     <Key>
@@ -46,15 +43,8 @@ advertencia 6002: La tabla o vista 'DBProgII.dbo.comentarios_o_quejas' no tiene 
   </EntityType>
   <EntityContainer Name="DBProgIIModel1StoreContainer">
     <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="comentarios_o_quejas" EntityType="Self.comentarios_o_quejas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="pedidos" EntityType="Self.pedidos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="comentarios_o_quejas" EntityType="Self.comentarios_o_quejas" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-[comentarios_o_quejas].[Fecha] AS [Fecha], 
-[comentarios_o_quejas].[Tipo] AS [Tipo], 
-[comentarios_o_quejas].[Descripción] AS [Descripción], 
-[comentarios_o_quejas].[Calificación] AS [Calificación]
-FROM [dbo].[comentarios_o_quejas] AS [comentarios_o_quejas]</DefiningQuery>
-    </EntitySet>
   </EntityContainer>
 </Schema>

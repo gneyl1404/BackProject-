@@ -179,7 +179,6 @@ namespace WebApplication1
                     objComentario.Fecha = Fecha;
                     objComentario.Calificación = Calificacion;
                     objComentario.Descripción = Descripcion;
-                    objComentario.Fecha = Descripcion;
                     objComentario.Tipo = Tipo;
                     contextoBD.comentarios_o_quejas.Add(objComentario);
                     contextoBD.SaveChanges();

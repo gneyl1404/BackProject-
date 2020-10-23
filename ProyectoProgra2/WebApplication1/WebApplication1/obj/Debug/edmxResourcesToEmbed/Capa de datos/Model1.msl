@@ -38,10 +38,11 @@
     <EntitySetMapping Name="comentarios_o_quejas">
       <EntityTypeMapping TypeName="DBProgIIModel1.comentarios_o_quejas">
         <MappingFragment StoreEntitySet="comentarios_o_quejas">
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-          <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+          <ScalarProperty Name="Código" ColumnName="Código" />
           <ScalarProperty Name="Calificación" ColumnName="Calificación" />
+          <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

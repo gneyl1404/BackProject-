@@ -18,5 +18,6 @@ namespace WebApplication1.Capa_de_datos
         public string Tipo { get; set; }
         public string Descripción { get; set; }
         public int Calificación { get; set; }
+        public int Código { get; set; }
     }
 }

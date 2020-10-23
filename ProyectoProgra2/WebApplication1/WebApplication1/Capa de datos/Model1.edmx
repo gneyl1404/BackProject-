@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBProgIIModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBProgIIModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -13,18 +13,15 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Dirección" Type="varchar" MaxLength="300" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'DBProgII.dbo.comentarios_o_quejas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="comentarios_o_quejas">
           <Key>
-            <PropertyRef Name="Fecha" />
-            <PropertyRef Name="Tipo" />
-            <PropertyRef Name="Calificación" />
+            <PropertyRef Name="Código" />
           </Key>
           <Property Name="Fecha" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Tipo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Descripción" Type="varchar" MaxLength="300" />
           <Property Name="Calificación" Type="int" Nullable="false" />
+          <Property Name="Código" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="pedidos">
           <Key>
@@ -51,19 +48,11 @@ advertencia 6002: La tabla o vista 'DBProgII.dbo.comentarios_o_quejas' no tiene 
         </EntityType>
         <EntityContainer Name="DBProgIIModel1StoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comentarios_o_quejas" EntityType="Self.comentarios_o_quejas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pedidos" EntityType="Self.pedidos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="comentarios_o_quejas" EntityType="Self.comentarios_o_quejas" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[comentarios_o_quejas].[Fecha] AS [Fecha], 
-[comentarios_o_quejas].[Tipo] AS [Tipo], 
-[comentarios_o_quejas].[Descripción] AS [Descripción], 
-[comentarios_o_quejas].[Calificación] AS [Calificación]
-FROM [dbo].[comentarios_o_quejas] AS [comentarios_o_quejas]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBProgIIModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -98,23 +87,22 @@ FROM [dbo].[comentarios_o_quejas] AS [comentarios_o_quejas]</DefiningQuery>
           <Property Name="Precio" Type="Int32" Nullable="false" />
           <Property Name="Stock" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="comentarios_o_quejas">
-          <Key>
-            <PropertyRef Name="Fecha" />
-            <PropertyRef Name="Tipo" />
-            <PropertyRef Name="Calificación" />
-          </Key>
-          <Property Name="Fecha" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripción" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Calificación" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="DBProgIIEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="pedidos" EntityType="Self.pedidos" />
           <EntitySet Name="Producto" EntityType="Self.Producto" />
-          <EntitySet Name="comentarios_o_quejas" EntityType="Self.comentarios_o_quejas" />
+          <EntitySet Name="comentarios_o_quejas" EntityType="DBProgIIModel1.comentarios_o_quejas" />
         </EntityContainer>
+        <EntityType Name="comentarios_o_quejas">
+          <Key>
+            <PropertyRef Name="Código" />
+          </Key>
+          <Property Name="Fecha" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Descripción" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Calificación" Type="Int32" Nullable="false" />
+          <Property Name="Código" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -158,10 +146,11 @@ FROM [dbo].[comentarios_o_quejas] AS [comentarios_o_quejas]</DefiningQuery>
           <EntitySetMapping Name="comentarios_o_quejas">
             <EntityTypeMapping TypeName="DBProgIIModel1.comentarios_o_quejas">
               <MappingFragment StoreEntitySet="comentarios_o_quejas">
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+                <ScalarProperty Name="Código" ColumnName="Código" />
                 <ScalarProperty Name="Calificación" ColumnName="Calificación" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
