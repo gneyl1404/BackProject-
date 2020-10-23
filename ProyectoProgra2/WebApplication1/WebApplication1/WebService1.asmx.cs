@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Services;
 using WebApplication1.Capa_de_datos;
@@ -171,7 +172,7 @@ namespace WebApplication1
             }
         }
         //Edgardo Saul Martinez Velasquez
-        
+
         [WebMethod]
         public string AñadirComentario(string Fecha, string Tipo, string Descripcion, int Calificacion)
         {
@@ -231,12 +232,12 @@ namespace WebApplication1
                     int numero = 5;
 
                     var info = quejas.comentarios_o_quejas.Find(numero);
-                    if(info == null)
+                    if (info == null)
                     {
                         quejas.SaveChanges();
                         return "No Existe Ningun Tipo De Queja ";
                     }
-                
+
                     else
                     {
                         return info.Fecha + "; " + info.Tipo + "; " + info.Descripción + "; " + info.Calificación + "; ";
@@ -287,7 +288,7 @@ namespace WebApplication1
                     obj.Nombre = Nombre;
                     obj.Precio = Precio;
                     obj.Stock = Stock;
-                    contextDB.Producto.AddOrUpdate(obj);
+                    contextDB.Producto.Add(obj);
                     contextDB.SaveChanges();
                 }
             }
@@ -308,18 +309,25 @@ namespace WebApplication1
             {
                 using (var contextDB = new DBProgIIEntities2())
                 {
-                    Producto obj = contextDB.Producto.Find(Codigo);
+                    var Producto = contextDB.Producto.Find(Codigo);
+                    if (Producto == null)
+                    {
+                        return "No hay registro algunos";
+                    }
+                    else
+                    {
+
+                        return "Código: " + Producto.Codigo + "Nombre: " + Producto.Nombre + "Precio: " + Producto.Precio + "Stock: " + Producto.Stock;
+                    }
+
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                return "ERROR:" + ex.Message;
 
-                return "Ha ocurrido un error: " + e;
             }
-
-            return "Código: " + obj.Codigo + "Nombre: " + obj.Nombre + "Precio: " + obj.Precio + "Stock: " + obj.Stock;
         }
-
         [WebMethod]
         public string EliminarProducto(string Codigo)
         {
@@ -391,23 +399,9 @@ namespace WebApplication1
             }
 
             return resultado;
+
         }
+
+
     }
 }
-
-     
-            
-
-            
-                
-            
-
-
-
-            
-
-
-            
-    
-
-
