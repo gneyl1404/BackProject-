@@ -340,6 +340,58 @@ namespace WebApplication1
 
             return "El producto se ha eliminado exitosamente";
         }
+        [WebMethod]
+        public string ObtenerPedidos()
+        {
+            string resultado = "";
+            try
+            {
+                using (var contextDB = new DBProgIIEntities2())
+                {
+                    List<pedidos> list = contextDB.pedidos.Find();
+                    List<pedidos> SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
+                    foreach (pedidos obj in list)
+                    {
+                        resultado += "Fecha: " + obj.Fecha + "Numero Pedido: " + obj.Numero_pedido + "Codigo Cliente: " + obj.Codigo_cliente + "Nombre Cliente: " + obj.Nombre_cliente + "Código Producto: " + obj.Codigo_producto + "Producto: " + obj.Producto + "Precio: " + obj.Precio + "Estado: " + obj.Estado + "Direccion: " + obj.Direccion + "\n";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+                return "Ha ocurrido un error: " + e;
+            }
+
+            return resultado;
+        }
+
+        [WebMethod]
+        public string ObtenerPedidosFinalizados()
+        {
+            string resultado = "";
+            try
+            {
+                using (var contextDB = new DBProgIIEntities2())
+                {
+                    List<pedidos> list = contextDB.pedidos.Find();
+                    List<pedidos> SortedList = list.OrderBy(o => o.Fecha).ToList();
+                    foreach (pedidos obj in list)
+                        if (obj.Estado == "Finalizado")
+                        {
+                            {
+                                resultado += "Fecha: " + obj.Fecha + "Numero Pedido: " + obj.Numero_pedido + "Codigo Cliente: " + obj.Codigo_cliente + "Nombre Cliente: " + obj.Nombre_cliente + "Código Producto: " + obj.Codigo_producto + "Producto: " + obj.Producto + "Precio: " + obj.Precio + "Estado: " + obj.Estado + "Direccion: " + obj.Direccion + "\n";
+                            }
+                        }
+                }
+            }
+            catch (Exception e)
+            {
+
+                return "Ha ocurrido un error: " + e;
+            }
+
+            return resultado;
+        }
     }
 }
 
