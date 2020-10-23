@@ -10,21 +10,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="pedidos">
-      <EntityTypeMapping TypeName="DBProgIIModel1.pedidos">
-        <MappingFragment StoreEntitySet="pedidos">
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Numero_pedido" ColumnName="Numero_pedido" />
-          <ScalarProperty Name="Codigo_cliente" ColumnName="Codigo_cliente" />
-          <ScalarProperty Name="Nombre_cliente" ColumnName="Nombre_cliente" />
-          <ScalarProperty Name="Codigo_producto" ColumnName="Codigo_producto" />
-          <ScalarProperty Name="Producto" ColumnName="Producto" />
-          <ScalarProperty Name="Precio" ColumnName="Precio" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Producto">
       <EntityTypeMapping TypeName="DBProgIIModel1.Producto">
         <MappingFragment StoreEntitySet="Producto">
@@ -42,6 +27,21 @@
           <ScalarProperty Name="Calificación" ColumnName="Calificación" />
           <ScalarProperty Name="Descripción" ColumnName="Descripción" />
           <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pedidos">
+      <EntityTypeMapping TypeName="DBProgIIModel1.pedidos">
+        <MappingFragment StoreEntitySet="pedidos">
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Producto" ColumnName="Producto" />
+          <ScalarProperty Name="Codigo_producto" ColumnName="Codigo_producto" />
+          <ScalarProperty Name="Nombre_cliente" ColumnName="Nombre_cliente" />
+          <ScalarProperty Name="Codigo_cliente" ColumnName="Codigo_cliente" />
+          <ScalarProperty Name="Numero_pedido" ColumnName="Numero_pedido" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
         </MappingFragment>
       </EntityTypeMapping>

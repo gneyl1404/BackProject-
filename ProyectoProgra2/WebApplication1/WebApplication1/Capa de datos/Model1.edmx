@@ -33,7 +33,7 @@
           <Property Name="Nombre_cliente" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Codigo_producto" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Producto" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Precio" Type="int" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Dirección" Type="varchar" MaxLength="300" Nullable="false" />
         </EntityType>
@@ -64,20 +64,6 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Dirección" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="pedidos">
-          <Key>
-            <PropertyRef Name="Numero_pedido" />
-          </Key>
-          <Property Name="Fecha" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Numero_pedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Codigo_cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Nombre_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Codigo_producto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Producto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Precio" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Dirección" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="Producto">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -89,9 +75,9 @@
         </EntityType>
         <EntityContainer Name="DBProgIIEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
-          <EntitySet Name="pedidos" EntityType="Self.pedidos" />
           <EntitySet Name="Producto" EntityType="Self.Producto" />
           <EntitySet Name="comentarios_o_quejas" EntityType="DBProgIIModel1.comentarios_o_quejas" />
+          <EntitySet Name="pedidos" EntityType="DBProgIIModel1.pedidos" />
         </EntityContainer>
         <EntityType Name="comentarios_o_quejas">
           <Key>
@@ -102,6 +88,20 @@
           <Property Name="Descripción" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Calificación" Type="Int32" Nullable="false" />
           <Property Name="Código" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="pedidos">
+          <Key>
+            <PropertyRef Name="Numero_pedido" />
+          </Key>
+          <Property Name="Fecha" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Numero_pedido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_cliente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Producto" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Dirección" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -114,21 +114,6 @@
               <MappingFragment StoreEntitySet="Cliente">
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Dirección" ColumnName="Dirección" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="pedidos">
-            <EntityTypeMapping TypeName="DBProgIIModel1.pedidos">
-              <MappingFragment StoreEntitySet="pedidos">
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Numero_pedido" ColumnName="Numero_pedido" />
-                <ScalarProperty Name="Codigo_cliente" ColumnName="Codigo_cliente" />
-                <ScalarProperty Name="Nombre_cliente" ColumnName="Nombre_cliente" />
-                <ScalarProperty Name="Codigo_producto" ColumnName="Codigo_producto" />
-                <ScalarProperty Name="Producto" ColumnName="Producto" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Dirección" ColumnName="Dirección" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -150,6 +135,21 @@
                 <ScalarProperty Name="Calificación" ColumnName="Calificación" />
                 <ScalarProperty Name="Descripción" ColumnName="Descripción" />
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedidos">
+            <EntityTypeMapping TypeName="DBProgIIModel1.pedidos">
+              <MappingFragment StoreEntitySet="pedidos">
+                <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="Codigo_producto" ColumnName="Codigo_producto" />
+                <ScalarProperty Name="Nombre_cliente" ColumnName="Nombre_cliente" />
+                <ScalarProperty Name="Codigo_cliente" ColumnName="Codigo_cliente" />
+                <ScalarProperty Name="Numero_pedido" ColumnName="Numero_pedido" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>
             </EntityTypeMapping>

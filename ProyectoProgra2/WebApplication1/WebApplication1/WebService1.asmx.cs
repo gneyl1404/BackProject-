@@ -51,7 +51,7 @@ namespace WebApplication1
                     var cliente = contextoBD.Cliente.Find(Codigo);
                     if (cliente == null)
                     {
-                        contextoBD.SaveChanges();
+                        //contextoBD.SaveChanges();
                         return "NO HAY REGISTRO ALGUNO ";
                     }
                     else
@@ -79,12 +79,13 @@ namespace WebApplication1
                     Objpedido.Numero_pedido = strNumero_pedido;
                     Objpedido.Nombre_cliente = strNombre_cliente;
                     Objpedido.Codigo_producto = strCodigo_producto;
+                    Objpedido.Producto = strproducto;
                     Objpedido.Estado = strEstado;
                     Objpedido.Precio = strPrecio;
                     Objpedido.Dirección = strDirección;
                     contextoBD.pedidos.Add(Objpedido);
                     contextoBD.SaveChanges();
-                    return "CLIENTE GUARDADO : ";
+                    return "PEDIDO GUARDADO : ";
                 }
             }
             catch (Exception ex)
@@ -96,21 +97,46 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string actualizarProducto(string Codigo)
+        public string Consultapedidos(string Codigo_pedido)
+        {
+            try
+            {
+                using (var pedidos = new DBProgIIEntities2())
+                {
+                    var info = pedidos.pedidos.Find(Codigo_pedido);
+                    if (info == null)
+                    {
+                        pedidos.SaveChanges();
+                        return "No Existe Ningun Tipo de Pedido ";
+                    }
+                    else
+                    {
+                        return info.Fecha + "; " + info.Numero_pedido + "; " + info.Codigo_cliente + "; " + info.Nombre_cliente + "; " + info.Codigo_producto + "; " + info.Producto + "; " + info.Precio + "; " + info.Estado + "; " + info.Dirección + "; ";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+        [WebMethod]
+        public string ConsultaProducto(string Codigo)
         {
             try
             {
                 using (var estoyMuerto = new DBProgIIEntities2())
                 {
-                    var cliente = estoyMuerto.Cliente.Find(Codigo);
-                    if (cliente == null)
+                    var pro = estoyMuerto.Producto.Find(Codigo);
+                    if (pro == null)
                     {
-                        estoyMuerto.SaveChanges();
-                        return "ACTUALIZACION DEL PRODUCTO DISPONIBLE ";
+                        //estoyMuerto.SaveChanges();
+                        return "PRODUCTO NO DISPONIBLE ";
                     }
                     else
                     {
-                        return cliente.Dirección + cliente.Nombre + "; " + cliente.Codigo;
+                        return pro.Codigo + pro.Nombre + "; " + pro.Precio + "; " + pro.Stock;
                     }
                 }
             }
@@ -119,6 +145,7 @@ namespace WebApplication1
                 return "OCURRIO UN ERROR " + ex.Message;
             }
         }
+
         [WebMethod]
         public string Consultaquejas(string Fecha)
         {
@@ -144,30 +171,7 @@ namespace WebApplication1
             }
         }
         //Edgardo Saul Martinez Velasquez
-        [WebMethod]
-        public string Consultapedidos(string Codigo_cliente)
-        {
-            try
-            {
-                using (var pedidos = new DBProgIIEntities2())
-                {
-                    var info = pedidos.pedidos.Find(Codigo_cliente);
-                    if (info == null)
-                    {
-                        pedidos.SaveChanges();
-                        return "No Existe Ningun Tipo de Pedido ";
-                    }
-                    else
-                    {
-                        return info.Fecha + "; " + info.Numero_pedido + "; " + info.Codigo_cliente + "; " + info.Nombre_cliente + "; " + info.Codigo_producto + "; " + info.Producto + "; " + info.Precio + "; " + info.Estado + "; " + info.Dirección + "; ";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return "ERROR:  " + ex.Message;
-            }
-        }
+        
         [WebMethod]
         public string AñadirComentario(string Fecha, string Tipo, string Descripcion, int Calificacion)
         {
@@ -190,6 +194,7 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
+
         [WebMethod]
         public string ClientesFrecuentes(string strFacturasEmitidas)
         {
@@ -214,6 +219,7 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
+
         [WebMethod]
         public string Consulpuntajequejas()
         {

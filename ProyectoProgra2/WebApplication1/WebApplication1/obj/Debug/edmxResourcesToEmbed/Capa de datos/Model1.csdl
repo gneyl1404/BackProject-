@@ -8,20 +8,6 @@
     <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Dirección" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
-  <EntityType Name="pedidos">
-    <Key>
-      <PropertyRef Name="Numero_pedido" />
-    </Key>
-    <Property Name="Fecha" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Numero_pedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Codigo_cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Nombre_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Codigo_producto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Producto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Precio" Type="Int32" Nullable="false" />
-    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Dirección" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-  </EntityType>
   <EntityType Name="Producto">
     <Key>
       <PropertyRef Name="Codigo" />
@@ -33,9 +19,9 @@
   </EntityType>
   <EntityContainer Name="DBProgIIEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cliente" EntityType="Self.Cliente" />
-    <EntitySet Name="pedidos" EntityType="Self.pedidos" />
     <EntitySet Name="Producto" EntityType="Self.Producto" />
     <EntitySet Name="comentarios_o_quejas" EntityType="DBProgIIModel1.comentarios_o_quejas" />
+    <EntitySet Name="pedidos" EntityType="DBProgIIModel1.pedidos" />
   </EntityContainer>
   <EntityType Name="comentarios_o_quejas">
     <Key>
@@ -46,5 +32,19 @@
     <Property Name="Descripción" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="Calificación" Type="Int32" Nullable="false" />
     <Property Name="Código" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="pedidos">
+    <Key>
+      <PropertyRef Name="Numero_pedido" />
+    </Key>
+    <Property Name="Fecha" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Numero_pedido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Codigo_cliente" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre_cliente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Codigo_producto" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Producto" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Dirección" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

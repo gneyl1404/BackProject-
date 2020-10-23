@@ -20,7 +20,7 @@ namespace WebApplication1.Capa_de_datos
         public string Nombre_cliente { get; set; }
         public string Codigo_producto { get; set; }
         public string Producto { get; set; }
-        public int Precio { get; set; }
+        public decimal Precio { get; set; }
         public string Estado { get; set; }
         public string Dirección { get; set; }
     }

@@ -26,8 +26,8 @@ namespace WebApplication1.Capa_de_datos
         }
     
         public DbSet<Cliente> Cliente { get; set; }
-        public DbSet<pedidos> pedidos { get; set; }
         public DbSet<Producto> Producto { get; set; }
         public DbSet<comentarios_o_quejas> comentarios_o_quejas { get; set; }
+        public DbSet<pedidos> pedidos { get; set; }
     }
 }

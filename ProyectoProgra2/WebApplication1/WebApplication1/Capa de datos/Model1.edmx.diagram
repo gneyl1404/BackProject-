@@ -6,9 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="deccb5b301f0411d8c9c2a1b49ba92ce" Name="Diagram1">
         <EntityTypeShape EntityType="DBProgIIModel1.Cliente" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBProgIIModel1.pedidos" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBProgIIModel1.Producto" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBProgIIModel1.comentarios_o_quejas" Width="1.5" PointX="1.375" PointY="4.125" />
+        <EntityTypeShape EntityType="DBProgIIModel1.pedidos" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

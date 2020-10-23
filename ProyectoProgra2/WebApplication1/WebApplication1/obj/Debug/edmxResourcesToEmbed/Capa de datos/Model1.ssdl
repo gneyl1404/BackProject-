@@ -28,7 +28,7 @@
     <Property Name="Nombre_cliente" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Codigo_producto" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Producto" Type="varchar" MaxLength="200" Nullable="false" />
-    <Property Name="Precio" Type="int" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Dirección" Type="varchar" MaxLength="300" Nullable="false" />
   </EntityType>
