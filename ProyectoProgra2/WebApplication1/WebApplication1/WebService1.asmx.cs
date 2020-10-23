@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Services;
+using System.Web.UI.WebControls;
 using WebApplication1.Capa_de_datos;
 
 namespace WebApplication1
@@ -196,30 +197,6 @@ namespace WebApplication1
             }
         }
 
-        [WebMethod]
-        public string ClientesFrecuentes(string strFacturasEmitidas)
-        {
-            try
-            {
-                using (var frecuente = new DBProgIIEntities2())
-                {
-                    var cliente = frecuente.Cliente.Find(strFacturasEmitidas);
-                    if (cliente == null)
-                    {
-                        frecuente.SaveChanges();
-                        return "NO HAY REGISTRO ALGUNO ";
-                    }
-                    else
-                    {
-                        return cliente.Dirección + "; " + cliente.Nombre;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return "ERROR:  " + ex.Message;
-            }
-        }
 
         [WebMethod]
         public string Consulpuntajequejas()
@@ -401,6 +378,8 @@ namespace WebApplication1
             return resultado;
 
         }
+
+
 
 
     }
