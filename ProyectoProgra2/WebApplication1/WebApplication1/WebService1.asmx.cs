@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI.WebControls;
+using System.Xml.Serialization;
 using WebApplication1.Capa_de_datos;
 
 namespace WebApplication1
@@ -42,6 +45,33 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
+
+        [WebMethod]
+        public string ActualizarCliente(string strDireccion, string strNombre, string strCodigo)
+        {
+            try
+            {
+                using (var ContextoBD = new DBProgIIEntities2())
+                {
+                    Cliente actualizar = ContextoBD.Cliente.Find(strCodigo);
+                    if (actualizar != null)
+                    {
+                        actualizar.Nombre = strNombre;
+                        actualizar.Dirección = strDireccion;
+                        ContextoBD.SaveChanges();
+                        return "DATOS GUARDADOS CORRECTAMENTE";
+
+                    }
+                    return "DATOS NO ENCONTRADOS";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+
 
         [WebMethod]
         public string ConsultaCliente(string Codigo)
@@ -199,25 +229,25 @@ namespace WebApplication1
 
 
         [WebMethod]
-        public string Consulpuntajequejas()
+        public string Consulpuntajequejas(int puntaje)
         {
+            List<comentarios_o_quejas> SortedList = null;
             try
             {
                 using (var quejas = new DBProgIIEntities2())
 
                 {
-                    int numero = 5;
-
-                    var info = quejas.comentarios_o_quejas.Find(numero);
-                    if (info == null)
+                    List<comentarios_o_quejas> list = quejas.comentarios_o_quejas.Where(q => q.Calificación == puntaje).ToList();
+                    SortedList = list.OrderBy(o => o.Código).ToList();
+                    if (SortedList.Count < 1)
                     {
-                        quejas.SaveChanges();
                         return "No Existe Ningun Tipo De Queja ";
                     }
 
                     else
                     {
-                        return info.Fecha + "; " + info.Tipo + "; " + info.Descripción + "; " + info.Calificación + "; ";
+                        string Respuesta = ToXml(SortedList, false);
+                        return Respuesta;
                     }
                 }
             }
@@ -250,7 +280,7 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string ActualizarProducto(string Codigo, string Nombre, int Precio, int Stock)
+        public string AgregarProducto(string Codigo, string Nombre, int Precio, int Stock)
         {
             try
             {
@@ -273,7 +303,7 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public Producto ObtenerProducto(string Codigo)
+        public string ObtenerProducto(string Codigo)
         {
             try
             {
@@ -286,7 +316,8 @@ namespace WebApplication1
                     }
                     else
                     {
-                        return obj;
+                        string Respuesta = ToXml(obj, false);
+                        return Respuesta;
                     }
                 }
             }
@@ -315,8 +346,50 @@ namespace WebApplication1
             return "El producto se ha eliminado exitosamente";
         }
 
+
         [WebMethod]
-        public List<pedidos> ListaDePedidosOCompras()
+        public string ClientesFrecuentes()
+        {
+            List<ClientesFrecuentes> SortedList = new List<ClientesFrecuentes>();
+            try
+            {
+                using (var contextDB = new DBProgIIEntities2())
+                {
+                    var query = (from p in contextDB.pedidos
+                                 group p by p.Nombre_cliente into g
+                                 select new
+                                 {
+                                     name = g.Key,
+                                     count = g.Count()
+                                 }).ToList();
+
+                    ClientesFrecuentes cf;
+                    foreach (var item in query)
+                    {
+                        cf = new ClientesFrecuentes();
+                        cf.name = item.name;
+                        cf.count = item.count;
+                        SortedList.Add(cf);
+                    }
+                    if (query != null)
+                    {
+                        string Respuesta = ToXml(SortedList, false);
+                        return Respuesta;
+                    }
+                    else
+                    {
+                        return "0";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return "Ha ocurrido un error: " + e.Message;
+            }
+        }
+
+        [WebMethod]
+        public string ListaDePedidosOCompras()
         {
             List<pedidos> SortedList = null;
             try
@@ -335,29 +408,30 @@ namespace WebApplication1
             {
                 return null;
             }
-            return SortedList;
+            string Respuesta = ToXml(SortedList, false);
+            return Respuesta;
         }
 
         [WebMethod]
-        public List<pedidos> ReporteDeVentas()
+        public string ReporteDeVentasFinalizado()
         {
             List<pedidos> SortedList = null;
             try
             {
                 using (var contextDB = new DBProgIIEntities2())
                 {
-                    List<pedidos> list = contextDB.pedidos.ToList();
-                    foreach (pedidos obj in list)
-                    {
-                        if (!obj.Estado.Contains("Finalizado"))
-                        {
-                            list.Remove(obj);
-                        }
-                    }
+                    List<pedidos> list = contextDB.pedidos.Where(q => q.Estado == "Finalizado").ToList();
+                    //foreach (pedidos obj in list)
+                    //{
+                    //    if (!obj.Estado.Contains("Finalizado"))
+                    //    {
+                    //        list.Remove(obj);
+                    //    }
+                    //}
                     SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
                     if (SortedList.Capacity < 1)
                     {
-                        return null;
+                        return "no existen pedidos";
                     }
                 }
             }
@@ -365,10 +439,74 @@ namespace WebApplication1
             {
                 return null;
             }
-            return SortedList;
+            string Respuesta = ToXml(SortedList, false);
+            return Respuesta;
         }
 
+        [WebMethod]
+        public string ReporteDeVentasProceso()
+        {
+            List<pedidos> SortedList = null;
+            try
+            {
+                using (var contextDB = new DBProgIIEntities2())
+                {
+                    List<pedidos> list = contextDB.pedidos.Where(q => q.Estado == "en proceso").ToList();
+                    SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
+                    if (SortedList.Capacity < 1)
+                    {
+                        return "no existen pedidos";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            string Respuesta = ToXml(SortedList, false);
+            return Respuesta;
+        }
 
+        private string ToXml(Object objToXml,
+                     bool includeNameSpace)
+        {
+            StreamWriter stWriter = null;
+            XmlSerializer xmlSerializer;
+            string buffer;
+            try
+            {
+                xmlSerializer =
+                      new XmlSerializer(objToXml.GetType());
+                MemoryStream memStream = new MemoryStream();
+                stWriter = new StreamWriter(memStream);
+                if (!includeNameSpace)
+                {
+
+                    System.Xml.Serialization.XmlSerializerNamespaces xs =
+                                         new XmlSerializerNamespaces();
+
+                    //To remove namespace and any other inline
+                    //information tag                     
+                    xs.Add("", "");
+                    xmlSerializer.Serialize(stWriter, objToXml, xs);
+                }
+                else
+                {
+                    xmlSerializer.Serialize(stWriter, objToXml);
+                }
+                //buffer = Encoding.ASCII.GetString(memStream.GetBuffer());
+                buffer = Encoding.UTF8.GetString(memStream.GetBuffer());
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                if (stWriter != null) stWriter.Close();
+            }
+            return buffer.Replace("\0", "");
+        }
 
 
     }
