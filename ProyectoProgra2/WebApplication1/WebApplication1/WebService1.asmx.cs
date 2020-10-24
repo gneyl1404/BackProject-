@@ -314,8 +314,9 @@ namespace WebApplication1
             }
             return "El producto se ha eliminado exitosamente";
         }
+
         [WebMethod]
-        public List<pedidos> ObtenerPedidos()
+        public List<pedidos> ListaDePedidosOCompras()
         {
             List<pedidos> SortedList = null;
             try
@@ -338,7 +339,7 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public List<pedidos> ObtenerPedidosFinalizados()
+        public List<pedidos> ReporteDeVentas()
         {
             List<pedidos> SortedList = null;
             try
@@ -348,12 +349,12 @@ namespace WebApplication1
                     List<pedidos> list = contextDB.pedidos.ToList();
                     foreach (pedidos obj in list)
                     {
-                        if (!obj.Estado.Equals("FINALIZADO", StringComparison.InvariantCultureIgnoreCase))
+                        if (!obj.Estado.Contains("Finalizado"))
                         {
                             list.Remove(obj);
                         }
                     }
-                    SortedList = list.OrderBy(o => o.Fecha).ToList();
+                    SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
                     if (SortedList.Capacity < 1)
                     {
                         return null;
