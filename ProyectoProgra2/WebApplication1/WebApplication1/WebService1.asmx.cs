@@ -305,6 +305,7 @@ namespace WebApplication1
                 {
                     Producto obj = contextDB.Producto.Find(Codigo);
                     contextDB.Producto.Remove(obj);
+                    contextDB.SaveChanges();
                 }
             }
             catch (Exception e)
