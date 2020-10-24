@@ -314,57 +314,56 @@ namespace WebApplication1
             return "El producto se ha eliminado exitosamente";
         }
         [WebMethod]
-        public string ObtenerPedidos()
+        public List<pedidos> ObtenerPedidos()
         {
-            string resultado = "";
+            List<pedidos> SortedList = null;
             try
             {
                 using (var contextDB = new DBProgIIEntities2())
                 {
-                    List<pedidos> list = contextDB.pedidos.Find();
-                    List<pedidos> SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
-                    foreach (pedidos obj in list)
+                    List<pedidos> list = contextDB.pedidos.ToList();
+                    SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
+                    if (SortedList.Capacity < 1)
                     {
-                        resultado += "Fecha: " + obj.Fecha + "Numero Pedido: " + obj.Numero_pedido + "Codigo Cliente: " + obj.Codigo_cliente + "Nombre Cliente: " + obj.Nombre_cliente + "Código Producto: " + obj.Codigo_producto + "Producto: " + obj.Producto + "Precio: " + obj.Precio + "Estado: " + obj.Estado + "Direccion: " + obj.Direccion + "\n";
+                        return null;
                     }
                 }
             }
             catch (Exception e)
             {
-
-                return "Ha ocurrido un error: " + e;
+                return null;
             }
-
-            return resultado;
+            return SortedList;
         }
 
         [WebMethod]
-        public string ObtenerPedidosFinalizados()
+        public List<pedidos> ObtenerPedidosFinalizados()
         {
-            string resultado = "";
+            List<pedidos> SortedList = null;
             try
             {
                 using (var contextDB = new DBProgIIEntities2())
                 {
-                    List<pedidos> list = contextDB.pedidos.Find();
-                    List<pedidos> SortedList = list.OrderBy(o => o.Fecha).ToList();
+                    List<pedidos> list = contextDB.pedidos.ToList();
                     foreach (pedidos obj in list)
-                        if (obj.Estado == "Finalizado")
+                    {
+                        if (!obj.Estado.Equals("FINALIZADO", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            {
-                                resultado += "Fecha: " + obj.Fecha + "Numero Pedido: " + obj.Numero_pedido + "Codigo Cliente: " + obj.Codigo_cliente + "Nombre Cliente: " + obj.Nombre_cliente + "Código Producto: " + obj.Codigo_producto + "Producto: " + obj.Producto + "Precio: " + obj.Precio + "Estado: " + obj.Estado + "Direccion: " + obj.Direccion + "\n";
-                            }
+                            list.Remove(obj);
                         }
+                    }
+                    SortedList = list.OrderBy(o => o.Fecha).ToList();
+                    if (SortedList.Capacity < 1)
+                    {
+                        return null;
+                    }
                 }
             }
             catch (Exception e)
             {
-
-                return "Ha ocurrido un error: " + e;
+                return null;
             }
-
-            return resultado;
-
+            return SortedList;
         }
 
 
