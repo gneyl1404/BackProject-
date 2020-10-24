@@ -229,7 +229,6 @@ namespace WebApplication1
         [WebMethod]
         public string InsertarProducto(string Codigo, string Nombre, int Precio, int Stock)
         {
-
             try
             {
                 using (var contextDB = new DBProgIIEntities2())
@@ -245,17 +244,14 @@ namespace WebApplication1
             }
             catch (Exception e)
             {
-
-                return "Ha ocurrido un error: " + e;
+                return "Ha ocurrido un error: " + e.Message;
             }
-
             return "El producto se agregó exitosamente";
         }
 
         [WebMethod]
         public string ActualizarProducto(string Codigo, string Nombre, int Precio, int Stock)
         {
-
             try
             {
                 using (var contextDB = new DBProgIIEntities2())
@@ -271,44 +267,38 @@ namespace WebApplication1
             }
             catch (Exception e)
             {
-
-                return "Ha ocurrido un error: " + e;
+                return "Ha ocurrido un error: " + e.Message;
             }
-
             return "El producto se agregó exitosamente";
         }
 
         [WebMethod]
-        public string ObtenerProducto(string Codigo)
+        public Producto ObtenerProducto(string Codigo)
         {
-
             try
             {
                 using (var contextDB = new DBProgIIEntities2())
                 {
-                    var Producto = contextDB.Producto.Find(Codigo);
-                    if (Producto == null)
+                    Producto obj = contextDB.Producto.Find(Codigo);
+                    if (obj == null)
                     {
-                        return "No hay registro algunos";
+                        return null;
                     }
                     else
                     {
-
-                        return "Código: " + Producto.Codigo + "Nombre: " + Producto.Nombre + "Precio: " + Producto.Precio + "Stock: " + Producto.Stock;
+                        return obj;
                     }
-
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return "ERROR:" + ex.Message;
-
+                return null;
             }
         }
+
         [WebMethod]
         public string EliminarProducto(string Codigo)
         {
-
             try
             {
                 using (var contextDB = new DBProgIIEntities2())
@@ -319,10 +309,8 @@ namespace WebApplication1
             }
             catch (Exception e)
             {
-
-                return "Ha ocurrido un error: " + e;
+                return "Ha ocurrido un error: " + e.Message;
             }
-
             return "El producto se ha eliminado exitosamente";
         }
         [WebMethod]
