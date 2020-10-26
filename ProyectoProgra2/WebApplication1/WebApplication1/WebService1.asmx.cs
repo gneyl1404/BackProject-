@@ -387,6 +387,35 @@ namespace WebApplication1
                 return "Ha ocurrido un error: " + e.Message;
             }
         }
+        [WebMethod]
+        public string Listadepedidosporcodigo(string codigocliente)
+        {
+            List<pedidos> SortedList = null;
+            try
+            {
+                using (var Listado = new DBProgIIEntities2())
+
+                {
+                    List<pedidos> list = Listado.pedidos.Where(L => L.Codigo_cliente == codigocliente).ToList();
+                    SortedList = list.OrderBy(o => o.Codigo_producto).ToList();
+                    if (SortedList.Count > 1)
+                    {
+                        return "No Existe Ningun Tipo De Pedido ";
+                    }
+
+                    else
+                    {
+                        string Respuesta = ToXml(SortedList, false);
+                        return Respuesta;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
 
         [WebMethod]
         public string ListaDePedidosOCompras()
@@ -466,6 +495,7 @@ namespace WebApplication1
             string Respuesta = ToXml(SortedList, false);
             return Respuesta;
         }
+
 
         private string ToXml(Object objToXml,
                      bool includeNameSpace)
