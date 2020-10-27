@@ -25,7 +25,7 @@ namespace WebApplication1
         private object contextoBD;
 
         [WebMethod]
-        public string Crear_Cliente(string strCodigo, string strDireccion, string strNombre)
+        public string CrearCliente(string strCodigo, string strDireccion, string strNombre)
         {
             try
             {
@@ -47,22 +47,72 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string ActualizarCliente(string strDireccion, string strNombre, string strCodigo)
+        public string ActualizarCliente(string strCodigo, string strNombre, string strDireccion)
         {
             try
             {
                 using (var ContextoBD = new DBProgIIEntities2())
                 {
-                    Cliente actualizar = ContextoBD.Cliente.Find(strCodigo);
+                    Cliente actualizar = ContextoBD.Cliente.SingleOrDefault(p => p.Codigo == strCodigo);
                     if (actualizar != null)
                     {
                         actualizar.Nombre = strNombre;
                         actualizar.Dirección = strDireccion;
                         ContextoBD.SaveChanges();
-                        return "DATOS GUARDADOS CORRECTAMENTE";
+                        return "DATOS ACTUALIZADOS CORRECTAMENTE";
 
                     }
-                    return "DATOS NO ENCONTRADOS";
+                    return "CÓDIGO NO ENCONTRADO";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+        [WebMethod]
+        public string ActualizarProducto(string strCodigo, string strNombre, int strPrecio, int strStock)
+        {
+            try
+            {
+                using (var ContextoBD = new DBProgIIEntities2())
+                {
+                    Producto actualizar = ContextoBD.Producto.SingleOrDefault(p => p.Codigo == strCodigo);
+                    if (actualizar != null)
+                    {
+                        actualizar.Nombre = strNombre;
+                        actualizar.Precio = strPrecio;
+                        actualizar.Stock = strStock;
+                        ContextoBD.SaveChanges();
+                        return "DATOS ACTUALIZADOS CORRECTAMENTE";
+
+                    }
+                    return "CÓDIGO NO ENCONTRADO";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR:  " + ex.Message;
+            }
+        }
+
+        [WebMethod]
+        public string ActualizarPedido(string strNumeroPedido, string strEstado)
+        {
+            try
+            {
+                using (var ContextoBD = new DBProgIIEntities2())
+                {
+                    pedidos actualizar = ContextoBD.pedidos.SingleOrDefault(p => p.Numero_pedido == strNumeroPedido);
+                    if (actualizar != null)
+                    {
+                        actualizar.Estado = strEstado;
+                        ContextoBD.SaveChanges();
+                        return "PEDIDO ACTUALIZADO CORRECTAMENTE";
+
+                    }
+                    return "NÚMERO DE PEDIDO NO ENCONTRADO";
                 }
             }
             catch (Exception ex)
@@ -99,7 +149,7 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string Crear_Pedidos(string strCodigo_Cliente, string strFecha, string strNumero_pedido, string strNombre_cliente, string strCodigo_producto, string strproducto, int strPrecio, string strEstado, string strDirección)
+        public string CrearPedidos(string strCodigo_Cliente, string strFecha, string strNumero_pedido, string strNombre_cliente, string strCodigo_producto, string strproducto, int strPrecio, string strEstado, string strDirección)
         {
             try
             {
@@ -129,7 +179,7 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string Consultapedidos(string Codigo_pedido)
+        public string ConsultaPedidos(string Codigo_pedido)
         {
             try
             {
@@ -139,7 +189,7 @@ namespace WebApplication1
                     if (info == null)
                     {
                         pedidos.SaveChanges();
-                        return "No Existe Ningun Tipo de Pedido ";
+                        return "NO HAY PEDIDOS";
                     }
                     else
                     {
@@ -158,17 +208,16 @@ namespace WebApplication1
         {
             try
             {
-                using (var estoyMuerto = new DBProgIIEntities2())
+                using (var consult = new DBProgIIEntities2())
                 {
-                    var pro = estoyMuerto.Producto.Find(Codigo);
+                    var pro = consult.Producto.Find(Codigo);
                     if (pro == null)
                     {
-                        //estoyMuerto.SaveChanges();
                         return "PRODUCTO NO DISPONIBLE ";
                     }
                     else
                     {
-                        return pro.Codigo + pro.Nombre + "; " + pro.Precio + "; " + pro.Stock;
+                        return  pro.Nombre + "; " + pro.Precio + "; " + pro.Stock;
                     }
                 }
             }
@@ -179,28 +228,27 @@ namespace WebApplication1
         }
 
         [WebMethod]
-        public string Consultaquejas(string Fecha)
+        public string ReporteDeQuejasOComenterios()
         {
+            List<comentarios_o_quejas> SortedList = null;
             try
             {
-                using (var quejas = new DBProgIIEntities2())
+                using (var contextDB = new DBProgIIEntities2())
                 {
-                    var info = quejas.comentarios_o_quejas.Find(Fecha);
-                    if (info == null)
+                    List<comentarios_o_quejas> list = contextDB.comentarios_o_quejas.ToList();
+                    SortedList = list.OrderBy(o => o.Fecha).ToList();
+                    if (SortedList.Capacity < 1)
                     {
-                        quejas.SaveChanges();
-                        return "No Existe Ningun Tipo De Queja ";
-                    }
-                    else
-                    {
-                        return info.Fecha + "; " + info.Tipo + "; " + info.Descripción + "; " + info.Calificación + "; ";
+                        return null;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return "ERROR:  " + ex.Message;
+                return null;
             }
+            string Respuesta = ToXml(SortedList, false);
+            return Respuesta;
         }
         //Edgardo Saul Martinez Velasquez
 
@@ -218,7 +266,7 @@ namespace WebApplication1
                     objComentario.Tipo = Tipo;
                     contextoBD.comentarios_o_quejas.Add(objComentario);
                     contextoBD.SaveChanges();
-                    return "Comentario GUARDADO: ";
+                    return "COMENTARIO GUARDADO";
                 }
             }
             catch (Exception ex)
@@ -229,7 +277,7 @@ namespace WebApplication1
 
 
         [WebMethod]
-        public string Consulpuntajequejas(int puntaje)
+        public string ConsultaPuntajeComentariosOQuejas(int puntaje)
         {
             List<comentarios_o_quejas> SortedList = null;
             try
@@ -241,7 +289,7 @@ namespace WebApplication1
                     SortedList = list.OrderBy(o => o.Código).ToList();
                     if (SortedList.Count < 1)
                     {
-                        return "No Existe Ningun Tipo De Queja ";
+                        return "NO HAY COMENTARIOS NI QUEJAS";
                     }
 
                     else
@@ -256,28 +304,7 @@ namespace WebApplication1
                 return "ERROR:  " + ex.Message;
             }
         }
-        [WebMethod]
-        public string InsertarProducto(string Codigo, string Nombre, int Precio, int Stock)
-        {
-            try
-            {
-                using (var contextDB = new DBProgIIEntities2())
-                {
-                    Producto obj = new Producto();
-                    obj.Codigo = Codigo;
-                    obj.Nombre = Nombre;
-                    obj.Precio = Precio;
-                    obj.Stock = Stock;
-                    contextDB.Producto.Add(obj);
-                    contextDB.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                return "Ha ocurrido un error: " + e.Message;
-            }
-            return "El producto se agregó exitosamente";
-        }
+      
 
         [WebMethod]
         public string AgregarProducto(string Codigo, string Nombre, int Precio, int Stock)
@@ -297,33 +324,32 @@ namespace WebApplication1
             }
             catch (Exception e)
             {
-                return "Ha ocurrido un error: " + e.Message;
+                return "HA OCURRIDO UN ERROR: " + e.Message;
             }
-            return "El producto se agregó exitosamente";
+            return "EL PRODUCTO SE AGREGÓ EXITOSAMENTE";
         }
 
         [WebMethod]
-        public string ObtenerProducto(string Codigo)
+        public string ReporteStockProducto(string Codigo)
         {
             try
             {
-                using (var contextDB = new DBProgIIEntities2())
+                using (var consult = new DBProgIIEntities2())
                 {
-                    Producto obj = contextDB.Producto.Find(Codigo);
-                    if (obj == null)
+                    var pro = consult.Producto.Find(Codigo);
+                    if (pro == null)
                     {
-                        return null;
+                        return "PRODUCTO NO DISPONIBLE ";
                     }
                     else
                     {
-                        string Respuesta = ToXml(obj, false);
-                        return Respuesta;
+                        return  "UNIDADES DISPONIBLES :" + pro.Stock;
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return null;
+                return "OCURRIO UN ERROR " + ex.Message;
             }
         }
 
@@ -341,9 +367,9 @@ namespace WebApplication1
             }
             catch (Exception e)
             {
-                return "Ha ocurrido un error: " + e.Message;
+                return "HA OCURRIDO UN ERROR: " + e.Message;
             }
-            return "El producto se ha eliminado exitosamente";
+            return "EL PRODUCTO HA SIDO ELIMINADO";
         }
 
 
@@ -384,11 +410,11 @@ namespace WebApplication1
             }
             catch (Exception e)
             {
-                return "Ha ocurrido un error: " + e.Message;
+                return "HA OCURRIDO UN ERROR: " + e.Message;
             }
         }
         [WebMethod]
-        public string Listadepedidosporcodigo(string codigocliente)
+        public string ListaDePedidosPorCodigo(string codigocliente)
         {
             List<pedidos> SortedList = null;
             try
@@ -397,10 +423,10 @@ namespace WebApplication1
 
                 {
                     List<pedidos> list = Listado.pedidos.Where(L => L.Codigo_cliente == codigocliente).ToList();
-                    SortedList = list.OrderBy(o => o.Codigo_producto).ToList();
-                    if (SortedList.Count > 1)
+                    SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
+                    if (SortedList.Count < 1)
                     {
-                        return "No Existe Ningun Tipo De Pedido ";
+                        return "NO HAY PEDIDOS PARA ESE CLIENTE";
                     }
 
                     else
@@ -427,6 +453,31 @@ namespace WebApplication1
                 {
                     List<pedidos> list = contextDB.pedidos.ToList();
                     SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
+                    if (SortedList.Capacity < 1)
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            string Respuesta = ToXml(SortedList, false);
+            return Respuesta;
+        }
+
+
+        [WebMethod]
+        public string ReporteDeClientes()
+        {
+            List<Cliente> SortedList = null;
+            try
+            {
+                using (var contextDB = new DBProgIIEntities2())
+                {
+                    List<Cliente> list = contextDB.Cliente.ToList();
+                    SortedList = list.OrderBy(o => o.Codigo).ToList();
                     if (SortedList.Capacity < 1)
                     {
                         return null;
@@ -480,11 +531,11 @@ namespace WebApplication1
             {
                 using (var contextDB = new DBProgIIEntities2())
                 {
-                    List<pedidos> list = contextDB.pedidos.Where(q => q.Estado == "en proceso").ToList();
+                    List<pedidos> list = contextDB.pedidos.Where(q => q.Estado == "EN PROCESO").ToList();
                     SortedList = list.OrderBy(o => o.Numero_pedido).ToList();
                     if (SortedList.Capacity < 1)
                     {
-                        return "no existen pedidos";
+                        return "NO HAY PEDIDOS EN PROCESO";
                     }
                 }
             }
