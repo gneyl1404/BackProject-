@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="https://gr1prog2b.azurewebsites.net/WebService1.asmx?WSDL" uri="xml-resources/web-service-references/WebService1/wsdl/gr1prog2b.azurewebsites.net/WebService1.asmx.wsdl"/>
+    <system systemId="https://gr1prog2b.azurewebsites.net/WebService1.asmx?WSDL" uri="xml-resources/web-service-references/WebService1_1/wsdl/gr1prog2b.azurewebsites.net/WebService1.asmx.wsdl"/>
 </catalog>
