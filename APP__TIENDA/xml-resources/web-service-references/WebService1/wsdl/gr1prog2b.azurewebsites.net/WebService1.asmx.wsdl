@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CrearCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strCodigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDireccion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNombre" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CrearClienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strCodigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNombre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDireccion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarClienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strCodigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNombre" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="strPrecio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="strStock" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarProductoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarPedido">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strNumeroPedido" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strEstado" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarPedidoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarPedidoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaClienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearPedidos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strCodigo_Cliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFecha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNumero_pedido" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNombre_cliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCodigo_producto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strproducto" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="strPrecio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strEstado" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDirección" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearPedidosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CrearPedidosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPedidos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo_pedido" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPedidosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaPedidosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaProductoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReporteDeQuejasOComenterios">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReporteDeQuejasOComenteriosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReporteDeQuejasOComenteriosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AñadirComentario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Calificacion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AñadirComentarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AñadirComentarioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPuntajeComentariosOQuejas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="puntaje" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPuntajeComentariosOQuejasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaPuntajeComentariosOQuejasResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgregarProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Precio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Stock" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgregarProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgregarProductoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReporteStockProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReporteStockProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReporteStockProductoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EliminarProductoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClientesFrecuentes">
+        <s:complexType />
+      </s:element>
+      <s:element name="ClientesFrecuentesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClientesFrecuentesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaDePedidosPorCodigo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codigocliente" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaDePedidosPorCodigoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaDePedidosPorCodigoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaDePedidosOCompras">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListaDePedidosOComprasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaDePedidosOComprasResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReporteDeClientes">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReporteDeClientesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReporteDeClientesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReporteDeVentasFinalizado">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReporteDeVentasFinalizadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReporteDeVentasFinalizadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReporteDeVentasProceso">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReporteDeVentasProcesoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReporteDeVentasProcesoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CrearClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:CrearCliente" />
+  </wsdl:message>
+  <wsdl:message name="CrearClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:CrearClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCliente" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarProductoSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarProducto" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarProductoSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarPedidoSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarPedido" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarPedidoSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaCliente" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CrearPedidosSoapIn">
+    <wsdl:part name="parameters" element="tns:CrearPedidos" />
+  </wsdl:message>
+  <wsdl:message name="CrearPedidosSoapOut">
+    <wsdl:part name="parameters" element="tns:CrearPedidosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPedidosSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaPedidos" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPedidosSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaPedidosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaProductoSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaProducto" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaProductoSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeQuejasOComenteriosSoapIn">
+    <wsdl:part name="parameters" element="tns:ReporteDeQuejasOComenterios" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeQuejasOComenteriosSoapOut">
+    <wsdl:part name="parameters" element="tns:ReporteDeQuejasOComenteriosResponse" />
+  </wsdl:message>
+  <wsdl:message name="AñadirComentarioSoapIn">
+    <wsdl:part name="parameters" element="tns:AñadirComentario" />
+  </wsdl:message>
+  <wsdl:message name="AñadirComentarioSoapOut">
+    <wsdl:part name="parameters" element="tns:AñadirComentarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPuntajeComentariosOQuejasSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaPuntajeComentariosOQuejas" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPuntajeComentariosOQuejasSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaPuntajeComentariosOQuejasResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgregarProductoSoapIn">
+    <wsdl:part name="parameters" element="tns:AgregarProducto" />
+  </wsdl:message>
+  <wsdl:message name="AgregarProductoSoapOut">
+    <wsdl:part name="parameters" element="tns:AgregarProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReporteStockProductoSoapIn">
+    <wsdl:part name="parameters" element="tns:ReporteStockProducto" />
+  </wsdl:message>
+  <wsdl:message name="ReporteStockProductoSoapOut">
+    <wsdl:part name="parameters" element="tns:ReporteStockProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarProductoSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarProducto" />
+  </wsdl:message>
+  <wsdl:message name="EliminarProductoSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClientesFrecuentesSoapIn">
+    <wsdl:part name="parameters" element="tns:ClientesFrecuentes" />
+  </wsdl:message>
+  <wsdl:message name="ClientesFrecuentesSoapOut">
+    <wsdl:part name="parameters" element="tns:ClientesFrecuentesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListaDePedidosPorCodigoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaDePedidosPorCodigo" />
+  </wsdl:message>
+  <wsdl:message name="ListaDePedidosPorCodigoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaDePedidosPorCodigoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListaDePedidosOComprasSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaDePedidosOCompras" />
+  </wsdl:message>
+  <wsdl:message name="ListaDePedidosOComprasSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaDePedidosOComprasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeClientesSoapIn">
+    <wsdl:part name="parameters" element="tns:ReporteDeClientes" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeClientesSoapOut">
+    <wsdl:part name="parameters" element="tns:ReporteDeClientesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeVentasFinalizadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ReporteDeVentasFinalizado" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeVentasFinalizadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ReporteDeVentasFinalizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeVentasProcesoSoapIn">
+    <wsdl:part name="parameters" element="tns:ReporteDeVentasProceso" />
+  </wsdl:message>
+  <wsdl:message name="ReporteDeVentasProcesoSoapOut">
+    <wsdl:part name="parameters" element="tns:ReporteDeVentasProcesoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebService1Soap">
+    <wsdl:operation name="CrearCliente">
+      <wsdl:input message="tns:CrearClienteSoapIn" />
+      <wsdl:output message="tns:CrearClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCliente">
+      <wsdl:input message="tns:ActualizarClienteSoapIn" />
+      <wsdl:output message="tns:ActualizarClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarProducto">
+      <wsdl:input message="tns:ActualizarProductoSoapIn" />
+      <wsdl:output message="tns:ActualizarProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarPedido">
+      <wsdl:input message="tns:ActualizarPedidoSoapIn" />
+      <wsdl:output message="tns:ActualizarPedidoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCliente">
+      <wsdl:input message="tns:ConsultaClienteSoapIn" />
+      <wsdl:output message="tns:ConsultaClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CrearPedidos">
+      <wsdl:input message="tns:CrearPedidosSoapIn" />
+      <wsdl:output message="tns:CrearPedidosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPedidos">
+      <wsdl:input message="tns:ConsultaPedidosSoapIn" />
+      <wsdl:output message="tns:ConsultaPedidosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaProducto">
+      <wsdl:input message="tns:ConsultaProductoSoapIn" />
+      <wsdl:output message="tns:ConsultaProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeQuejasOComenterios">
+      <wsdl:input message="tns:ReporteDeQuejasOComenteriosSoapIn" />
+      <wsdl:output message="tns:ReporteDeQuejasOComenteriosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AñadirComentario">
+      <wsdl:input message="tns:AñadirComentarioSoapIn" />
+      <wsdl:output message="tns:AñadirComentarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPuntajeComentariosOQuejas">
+      <wsdl:input message="tns:ConsultaPuntajeComentariosOQuejasSoapIn" />
+      <wsdl:output message="tns:ConsultaPuntajeComentariosOQuejasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgregarProducto">
+      <wsdl:input message="tns:AgregarProductoSoapIn" />
+      <wsdl:output message="tns:AgregarProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteStockProducto">
+      <wsdl:input message="tns:ReporteStockProductoSoapIn" />
+      <wsdl:output message="tns:ReporteStockProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarProducto">
+      <wsdl:input message="tns:EliminarProductoSoapIn" />
+      <wsdl:output message="tns:EliminarProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientesFrecuentes">
+      <wsdl:input message="tns:ClientesFrecuentesSoapIn" />
+      <wsdl:output message="tns:ClientesFrecuentesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaDePedidosPorCodigo">
+      <wsdl:input message="tns:ListaDePedidosPorCodigoSoapIn" />
+      <wsdl:output message="tns:ListaDePedidosPorCodigoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaDePedidosOCompras">
+      <wsdl:input message="tns:ListaDePedidosOComprasSoapIn" />
+      <wsdl:output message="tns:ListaDePedidosOComprasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeClientes">
+      <wsdl:input message="tns:ReporteDeClientesSoapIn" />
+      <wsdl:output message="tns:ReporteDeClientesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeVentasFinalizado">
+      <wsdl:input message="tns:ReporteDeVentasFinalizadoSoapIn" />
+      <wsdl:output message="tns:ReporteDeVentasFinalizadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeVentasProceso">
+      <wsdl:input message="tns:ReporteDeVentasProcesoSoapIn" />
+      <wsdl:output message="tns:ReporteDeVentasProcesoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CrearCliente">
+      <soap:operation soapAction="http://tempuri.org/CrearCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCliente">
+      <soap:operation soapAction="http://tempuri.org/ActualizarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarProducto">
+      <soap:operation soapAction="http://tempuri.org/ActualizarProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarPedido">
+      <soap:operation soapAction="http://tempuri.org/ActualizarPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCliente">
+      <soap:operation soapAction="http://tempuri.org/ConsultaCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearPedidos">
+      <soap:operation soapAction="http://tempuri.org/CrearPedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPedidos">
+      <soap:operation soapAction="http://tempuri.org/ConsultaPedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaProducto">
+      <soap:operation soapAction="http://tempuri.org/ConsultaProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeQuejasOComenterios">
+      <soap:operation soapAction="http://tempuri.org/ReporteDeQuejasOComenterios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AñadirComentario">
+      <soap:operation soapAction="http://tempuri.org/AñadirComentario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPuntajeComentariosOQuejas">
+      <soap:operation soapAction="http://tempuri.org/ConsultaPuntajeComentariosOQuejas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarProducto">
+      <soap:operation soapAction="http://tempuri.org/AgregarProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteStockProducto">
+      <soap:operation soapAction="http://tempuri.org/ReporteStockProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarProducto">
+      <soap:operation soapAction="http://tempuri.org/EliminarProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientesFrecuentes">
+      <soap:operation soapAction="http://tempuri.org/ClientesFrecuentes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDePedidosPorCodigo">
+      <soap:operation soapAction="http://tempuri.org/ListaDePedidosPorCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDePedidosOCompras">
+      <soap:operation soapAction="http://tempuri.org/ListaDePedidosOCompras" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeClientes">
+      <soap:operation soapAction="http://tempuri.org/ReporteDeClientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeVentasFinalizado">
+      <soap:operation soapAction="http://tempuri.org/ReporteDeVentasFinalizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeVentasProceso">
+      <soap:operation soapAction="http://tempuri.org/ReporteDeVentasProceso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CrearCliente">
+      <soap12:operation soapAction="http://tempuri.org/CrearCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCliente">
+      <soap12:operation soapAction="http://tempuri.org/ActualizarCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarProducto">
+      <soap12:operation soapAction="http://tempuri.org/ActualizarProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarPedido">
+      <soap12:operation soapAction="http://tempuri.org/ActualizarPedido" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCliente">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearPedidos">
+      <soap12:operation soapAction="http://tempuri.org/CrearPedidos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPedidos">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaPedidos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaProducto">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeQuejasOComenterios">
+      <soap12:operation soapAction="http://tempuri.org/ReporteDeQuejasOComenterios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AñadirComentario">
+      <soap12:operation soapAction="http://tempuri.org/AñadirComentario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPuntajeComentariosOQuejas">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaPuntajeComentariosOQuejas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarProducto">
+      <soap12:operation soapAction="http://tempuri.org/AgregarProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteStockProducto">
+      <soap12:operation soapAction="http://tempuri.org/ReporteStockProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarProducto">
+      <soap12:operation soapAction="http://tempuri.org/EliminarProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientesFrecuentes">
+      <soap12:operation soapAction="http://tempuri.org/ClientesFrecuentes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDePedidosPorCodigo">
+      <soap12:operation soapAction="http://tempuri.org/ListaDePedidosPorCodigo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDePedidosOCompras">
+      <soap12:operation soapAction="http://tempuri.org/ListaDePedidosOCompras" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeClientes">
+      <soap12:operation soapAction="http://tempuri.org/ReporteDeClientes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeVentasFinalizado">
+      <soap12:operation soapAction="http://tempuri.org/ReporteDeVentasFinalizado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteDeVentasProceso">
+      <soap12:operation soapAction="http://tempuri.org/ReporteDeVentasProceso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService1">
+    <wsdl:port name="WebService1Soap" binding="tns:WebService1Soap">
+      <soap:address location="https://gr1prog2b.azurewebsites.net/WebService1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12">
+      <soap12:address location="https://gr1prog2b.azurewebsites.net/WebService1.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
