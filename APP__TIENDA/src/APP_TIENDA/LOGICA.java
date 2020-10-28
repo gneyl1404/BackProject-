@@ -11,4 +11,12 @@ package APP_TIENDA;
  */
 public class LOGICA {
     
+   public String AgregarProducto( ){
+       return null;
+  
+     
+   }
+    
+
+    
 }

@@ -110,6 +110,11 @@ public class CREAR_PRODUCTO extends javax.swing.JFrame {
 
         AGREGAR.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         AGREGAR.setText("AGREGAR");
+        AGREGAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AGREGARActionPerformed(evt);
+            }
+        });
         getContentPane().add(AGREGAR);
         AGREGAR.setBounds(150, 310, 140, 31);
 
@@ -132,6 +137,12 @@ public class CREAR_PRODUCTO extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(642, 462));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AGREGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AGREGARActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_AGREGARActionPerformed
 
     /**
      * @param args the command line arguments
