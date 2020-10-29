@@ -50,5 +50,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/WebService1_1"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/org/tempuri"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-WebService1, wsimport-client-WebService1_1"/>
+    <target name="wsimport-client-WebService1_2" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/WebService1_2"/>
+        <property name="wsdl-WebService1_2" location="xml-resources/web-service-references/WebService1_2/wsdl/gr1prog2b.azurewebsites.net/WebService1.asmx.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WebService1_2" destdir="${build.generated.dir}/jax-wsCache/WebService1_2" wsdl="${wsdl-WebService1_2}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="https://gr1prog2b.azurewebsites.net/WebService1.asmx?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-WebService1_2}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/WebService1_2"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/WebService1_2">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-WebService1_2" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/WebService1_2"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/tempuri"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-WebService1, wsimport-client-WebService1_1, wsimport-client-WebService1_2"/>
 </project>
