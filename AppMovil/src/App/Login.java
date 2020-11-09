@@ -36,14 +36,14 @@ FondoPanel fondo = new FondoPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Iniciar Sesión");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
+                .addContainerGap(95, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(112, 112, 112))
         );
