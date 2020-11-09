@@ -130,6 +130,7 @@ FondoPanel fondo = new Pedidos.FondoPanel();
         jScrollPane3.setViewportView(tabla1);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("PEDIDOS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
