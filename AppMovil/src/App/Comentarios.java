@@ -108,6 +108,11 @@ String res, fecha,chismesito,itpo;
         });
 
         jButton3.setText("REGRESAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         c6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         c6.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,7 +234,7 @@ String mes = Integer.toString(c.get(Calendar.MONTH));
 String año = Integer.toString(c.get(Calendar.YEAR));
 fecha = dia +"/"+ mes +"/"+ año;
         
-if ((x<6)&&(p<3)){
+if ((x!=6)&&(p!=3)){
     
     res = servi.getWebService1Soap().añadirComentario(fecha, itpo, chismesito, x);
      JOptionPane.showMessageDialog(null, res, "Aviso", INFORMATION_MESSAGE);
@@ -242,6 +247,13 @@ if ((x<6)&&(p<3)){
         
      
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Menu o = new Menu();
+        o.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
