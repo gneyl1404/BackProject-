@@ -240,7 +240,7 @@ if ((x!=6)&&(p!=3)){
      JOptionPane.showMessageDialog(null, res, "Aviso", INFORMATION_MESSAGE);
     
 } else {
-    JOptionPane.showMessageDialog(null, res+" NO INGRESO LOS DATOS CORRECTAMENTE", "Aviso", javax.swing.JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(null, " NO INGRESO LOS DATOS CORRECTAMENTE", "Aviso", javax.swing.JOptionPane.ERROR_MESSAGE);
 }
         
         
