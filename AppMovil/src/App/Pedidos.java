@@ -9,8 +9,6 @@ import Servicio.WebService1;
 import java.awt.Graphics;
 import java.awt.Image;
 import static java.awt.image.ImageObserver.WIDTH;
-import java.io.StringReader;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -29,32 +27,26 @@ import org.jdom2.input.SAXBuilder;
  * @author Oswaldo Morales
  */
 public class Pedidos extends javax.swing.JFrame {
-FondoPanel fondo = new Pedidos.FondoPanel();
- DefaultTableModel objdtm = new DefaultTableModel();
- WebService1 servi = new WebService1();
- Login puente = new Login();
- public String CodigoCliente = puente.CodigoCliente();
- 
- /**
+
+    FondoPanel fondo = new Pedidos.FondoPanel();
+    DefaultTableModel objdtm = new DefaultTableModel();
+    WebService1 servi = new WebService1();
+    Login puente = new Login();
+
+    /**
      * Creates new form Pedidos
      */
-    public Pedidos( ) {
-        
-       
-         this.setContentPane(fondo);
+    public Pedidos() {
+
+        this.setContentPane(fondo);
         initComponents();
-        String titulos[] = { "FECHA", "PRODUCTO",  "ESTADO"};
+        String titulos[] = {"FECHA", "PRODUCTO", "ESTADO"};
         objdtm.setColumnIdentifiers(titulos);
         tabla1.setModel(objdtm);
-         
-        
-        
-          CargarPEDIDOS();
-        
-    }
 
-  
- 
+        CargarPEDIDOS();
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -215,7 +207,7 @@ FondoPanel fondo = new Pedidos.FondoPanel();
     private javax.swing.JTable tabla3;
     // End of variables declaration//GEN-END:variables
 
-class FondoPanel extends JPanel {
+    class FondoPanel extends JPanel {
 
         private Image imagen;
 
@@ -228,19 +220,19 @@ class FondoPanel extends JPanel {
 
         }
     }
- public void CargarPEDIDOS() {
 
-         
+    public void CargarPEDIDOS() {
+        Codigo CodigoObtenido = new Codigo();
+
         SAXBuilder builder = new SAXBuilder();
 
-        String resP = servi.getWebService1Soap().listaDePedidosPorCodigo(CodigoCliente);
+        String resP = servi.getWebService1Soap().listaDePedidosPorCodigo(CodigoObtenido.getCodigoCliente());
         /*Mostrar informacion multiple en base a un xml*/
         try {
-            
-            
-           Document documento =  builder.build(new StringReader(resP));
+
+            Document documento = builder.build(new StringReader(resP));
             /*xml manipulable*/
-            Element rootNodo =  documento.getRootElement();
+            Element rootNodo = documento.getRootElement();
             /*lista nodos*/
             List list = rootNodo.getChildren("pedidos");
 
@@ -249,17 +241,12 @@ class FondoPanel extends JPanel {
                 Element nodo = (Element) list.get(i);
                 /*fecha, comentario, puntuacion, etc.*/
                 String[] datos = new String[3];
-               
-                
-                
-                
-               datos[0] = nodo.getChildText("Fecha");
+
+                datos[0] = nodo.getChildText("Fecha");
                 datos[1] = nodo.getChildText("Producto");
-             
+
                 datos[2] = nodo.getChildText("Estado");
-              
-               
-                
+
                 objdtm.addRow(datos);
 
             }
@@ -268,7 +255,5 @@ class FondoPanel extends JPanel {
         }
 
     }
- 
-   
- 
+
 }

@@ -4,18 +4,28 @@
  * and open the template in the editor.
  */
 package App;
+
+import Servicio.WebService1;
 import java.awt.Graphics;
 import java.awt.Image;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.io.StringReader;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+
 /**
  *
  * @author Jorge Mayorga
  */
 public class Login extends javax.swing.JFrame {
-FondoPanel fondo = new FondoPanel();
 
+    FondoPanel fondo = new FondoPanel();
+String CodigoC;
     /**
      * Creates new form Login
      */
@@ -24,13 +34,43 @@ FondoPanel fondo = new FondoPanel();
         initComponents();
     }
 
-    public String CodigoCliente(){
-        String CodigoCliente = "1000";
-        
-        return CodigoCliente;
-    
-}
-    
+    public boolean Validar(String codigo) {
+        WebService1 service = new WebService1();
+        SAXBuilder builder = new SAXBuilder();
+
+        String Respuesta = service.getWebService1Soap().reporteDeClientes();
+        try {
+
+            Document documento = builder.build(new StringReader(Respuesta));
+            /*xml manipulable*/
+            Element rootNodo = documento.getRootElement();
+            /*lista nodos*/
+            List list = rootNodo.getChildren("Cliente");
+
+            for (int i = 0; i < list.size(); i++) {
+
+                Element nodo = (Element) list.get(i);
+
+                String code = nodo.getChildText("Codigo");
+                if (code.equals(codigo)) {
+                    Login cerrar = new Login();
+                    cerrar.setVisible(false);
+                    Menu abrir = new Menu();
+                    abrir.setVisible(true);
+                    return true;
+                }
+
+            }
+
+            JOptionPane.showMessageDialog(null, "Código Incorrecto", "Aviso", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return false;
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,43 +80,99 @@ FondoPanel fondo = new FondoPanel();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btnInicio = new javax.swing.JButton();
+        txtCode = new javax.swing.JTextField();
+        btnRegistrar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Iniciar Sesión");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("¡BIENVENIDO!");
+
+        btnInicio.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnInicio.setText("Iniciar Sesión");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
+
+        btnRegistrar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnRegistrar.setText("Registrate");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("¿No tienes una cuenta?");
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Ingresa tu código:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(112, 112, 112))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(229, 229, 229)
-                .addComponent(jButton1)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addGap(216, 216, 216)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnInicio)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(9, 9, 9)
+                .addComponent(btnRegistrar)
+                .addContainerGap(216, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        String codigo = txtCode.getText();
+
+        Validar(codigo);
+        if (Validar(codigo) == true) {
+            Codigo CodigoObtenido = new Codigo();
+          CodigoObtenido.setCodigoCliente(codigo);
+        }
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        Login cerrar = new Login();
+        cerrar.setVisible(false);
+
+        CrearUsuario abrir = new CrearUsuario();
+        abrir.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,7 +210,12 @@ FondoPanel fondo = new FondoPanel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txtCode;
     // End of variables declaration//GEN-END:variables
 class FondoPanel extends JPanel {
 
