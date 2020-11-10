@@ -126,3 +126,7 @@ C:\Users\jalej\Documents\GitHub\BackProject-1\ProyectoProgra2\WebApplication1\We
 C:\Users\jalej\Documents\GitHub\BackProject-1\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
 C:\Users\Lubia Catalan\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\Lubia Catalan\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
+C:\Users\Jorge Mayorga\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csprojAssemblyReference.cache
+C:\Users\Jorge Mayorga\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csproj.CoreCompileInputs.cache
+C:\Users\Jorge Mayorga\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.dll
+C:\Users\Jorge Mayorga\Documents\GitHub\BackProject-\ProyectoProgra2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb

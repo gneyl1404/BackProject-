@@ -40,6 +40,7 @@ public class Pedidos extends javax.swing.JFrame {
 
         this.setContentPane(fondo);
         initComponents();
+        setLocationRelativeTo(null);
         String titulos[] = {"FECHA", "PRODUCTO", "ESTADO"};
         objdtm.setColumnIdentifiers(titulos);
         tabla1.setModel(objdtm);

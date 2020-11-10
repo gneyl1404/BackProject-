@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package App;
+
 import java.util.Random;
 import CapaLogica.WebService;
 import javax.swing.JOptionPane;
@@ -14,21 +15,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
-
 /**
  *
  * @author Jorge Mayorga
  */
 public class CrearUsuario extends javax.swing.JFrame {
-FondoPanel fondo = new FondoPanel();
+
+    FondoPanel fondo = new FondoPanel();
     WebService objService = new WebService();
 
     /**
      * Creates new form CrearUsuario
      */
     public CrearUsuario() {
-         this.setContentPane(fondo);
+        this.setContentPane(fondo);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -135,8 +137,7 @@ FondoPanel fondo = new FondoPanel();
                 objService.RegistrarUsuario(cadena, Nombre, Direccion);
 
                 JOptionPane.showMessageDialog(null, "Ya se encuentra registrado, guarde este código: " + cadena + " para poder iniciar sesión", "Aviso", INFORMATION_MESSAGE);
-                CrearUsuario cerrar = new CrearUsuario();
-                cerrar.setVisible(false);
+                this.setVisible(false);
                 Login abrir = new Login();
                 abrir.setVisible(true);
                 cadena = "";

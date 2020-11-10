@@ -29,6 +29,7 @@ String res, fecha,chismesito,itpo;
     public Comentarios() {
         this.setContentPane(fondo);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

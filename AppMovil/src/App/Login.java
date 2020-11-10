@@ -25,13 +25,15 @@ import org.jdom2.input.SAXBuilder;
 public class Login extends javax.swing.JFrame {
 
     FondoPanel fondo = new FondoPanel();
-String CodigoC;
+    String CodigoC;
+
     /**
      * Creates new form Login
      */
     public Login() {
         this.setContentPane(fondo);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public boolean Validar(String codigo) {
@@ -53,8 +55,7 @@ String CodigoC;
 
                 String code = nodo.getChildText("Codigo");
                 if (code.equals(codigo)) {
-                    Login cerrar = new Login();
-                    cerrar.setVisible(false);
+                    this.setVisible(false);
                     Menu abrir = new Menu();
                     abrir.setVisible(true);
                     return true;
@@ -86,6 +87,7 @@ String CodigoC;
         btnRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +95,7 @@ String CodigoC;
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("¡BIENVENIDO!");
 
+        btnInicio.setBackground(new java.awt.Color(255, 102, 0));
         btnInicio.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnInicio.setText("Iniciar Sesión");
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +104,7 @@ String CodigoC;
             }
         });
 
+        btnRegistrar.setBackground(new java.awt.Color(255, 102, 0));
         btnRegistrar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnRegistrar.setText("Registrate");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -109,31 +113,51 @@ String CodigoC;
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¿No tienes una cuenta?");
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ingresa tu código:");
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/house_home_14024.png"))); // NOI18N
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                                .addComponent(txtCode)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(125, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(124, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(209, 209, 209))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +174,9 @@ String CodigoC;
                 .addComponent(jLabel1)
                 .addGap(9, 9, 9)
                 .addComponent(btnRegistrar)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -162,17 +188,20 @@ String CodigoC;
         Validar(codigo);
         if (Validar(codigo) == true) {
             Codigo CodigoObtenido = new Codigo();
-          CodigoObtenido.setCodigoCliente(codigo);
+            CodigoObtenido.setCodigoCliente(codigo);
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        Login cerrar = new Login();
-        cerrar.setVisible(false);
+        this.setVisible(false);
 
         CrearUsuario abrir = new CrearUsuario();
         abrir.setVisible(true);
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(WIDTH);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,6 +241,7 @@ String CodigoC;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
